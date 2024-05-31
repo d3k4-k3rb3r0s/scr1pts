@@ -19,8 +19,53 @@ read_config() {
 }
 read_config
 
+# Function to prompt user to continue
+prompt_continue() {
+    read -p "[>]:[$hostname]:[d3ckn3t_sh3ll]:[>]:[press_ENTER]:[>]"
+}
+
 # Function to set up default values interactively
 setup_defaults() {
+  clear
+  cat << "EOF"
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⢖⣛⣻⠿⢖⣒⣒⡒⠒⠲⠤⣄⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣼⠁⠈⠁⠀⢾⣿⠛⠛⠛⠛⠓⠀⠈⢇⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⣀⡤⢴⠇⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀               [d3ckn3t-sh3ll]:[v]:[1.0.3]
+⠀⢀⡤⣲⣯⣶⣿⡿ ⠀.|3|@|<|-|@t. ⠀⢸⠀⠀⠀⠀⠀⠀⠀               [d3k4]:[2024]
+⢠⢟⣿⠟⠛⠉⢀⣧⣤⣀⣀⡀⠀⠀⣀⡤⠤⠐⠒⠒⠒⠒⠚⠒⠒⠢⢤⡀⠀⠀               [hack.the.planet]    
+⣾⡞⠁⠀⠀⠀⠸⢿⣿⣿⣿⠿⠛⠉   .|3|G|R0|\|.⠀⠉⠢⡀               [all.your.nekworkz.are.belong.to.us]
+⣷⠀⠀⠀⠀⠀⠀⣀⠤⠋⠁⠀⠀⣀⣀⣀⣠⣤⣤⣤⣤⣤⣤⣀⣀⡀⠀⠀⠀⢱
+⠘⢮⣦⣠⣄⣴⡯⠥⠴⠒⠚⠛⠛⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠛⠒⠒⠋       
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+EOF
+  sleep .2
+  echo -e "\n[!]:[sysangel@d3ckn3t]:[Welcome to the set^ process for d3ckn3t-sh3ll,$operator.]:[!]\n"
+  sleep .2
+  read -p "[?]:[d3ckn3t]:[set^]:[input.default]:[-u--user]:[current: $DEFAULT_USER]:[?] " USER
+  sleep .2
+  echo "[.]:[...]"
+  sleep .2
+  read -p "[?]:[d3ckn3t]:[set^]:[input.default]:[-t--target]:[current: $DEFAULT_TARGET]:[?] " TARGET
+  sleep .2
+  echo "[.]:[...]"
+  sleep .2
+  read -p "[?]:[d3ckn3t]:[set^]:[input.dedault]:[-p--port]:[current: $DEFAULT_PORT]:[?] " PORT
+  sleep .2
+  echo "[.]:[...]"
+  sleep .2
+  read -p "[?]:[d3ckn3t]:[set^]:[input.default]:[-c--command]:[current: '$DEFAULT_COMMAND']:[?]" COMMAND
+  sleep .2
+  
+# Write the configuration to the file
+  echo "DEFAULT_USER=${USER:-$DEFAULT_USER}" > "$CONFIG_FILE"
+  echo "DEFAULT_TARGET=${TARGET:-$DEFAULT_TARGET}" >> "$CONFIG_FILE"
+  echo "DEFAULT_PORT=${PORT:-$DEFAULT_PORT}" >> "$CONFIG_FILE"
+  echo "DEFAULT_COMMAND='${COMMAND:-$DEFAULT_COMMAND}'" >> "$CONFIG_FILE"
+
+  echo -e "\n[!]:[sysangel@d3ckn3t]:[Defaults entered, let's review]:[!]\n"
+  prompt_continue
+  read -p 
   clear
   cat << "EOF"
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -34,38 +79,53 @@ setup_defaults() {
 ⠘⢮⣦⣠⣄⣴⡯⠥⠴⠒⠚⠛⠛⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠛⠒⠒⠋       
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 EOF
+  read_config
+  echo -e "\n[=]:[sysangel@d3ckn3t]:[Here are your current defaults, $operator.]:[>]"
   sleep .2
-  echo -e "\n[!]:[sysangel@d3ckn3t]:[Welcome to the set^ process for d3ckn3t-sh3ll,$operator.]:[!]\n"
+  echo -e "[.]:[...]\n"
+  sleep .5
+  echo "[=]:[d3ckn3t]:[set^]:[Default]:[-u--user]:[=]:[$DEFAULT_USER]:[=]"
+  echo "[=]:[d3ckn3t]:[set^]:[Default]:[-t--target]:[=]:[$DEFAULT_TARGET]:[=]"
+  echo "[=]:[d3ckn3t]:[set^]:[Default]:[-p--port]:[=]:[$DEFAULT_PORT]:[=]"
+  echo -e "[=]:[d3ckn3t]:[set^]:[Default]:[-c--command]:[=]:[$DEFAULT_COMMAND]:[=]\n"
   sleep .2
-  read -p "[?]:[d3ckn3t]:[set^]:[Enter default --user]:[default is $DEFAULT_USER]:[?] " USER
+  echo -e "[*]:[Options]:"
+  sleep .5  
+  echo -e "[1]:[return]:[d3ckn3t_sh3ll]:"
+  echo -e "[2]:[return]:[d3ckn3t_sh3ll]:[set^]"
+  echo -e "[3]:[exit]:[d3ckn3t_sh3ll]\n"
   sleep .2
-  echo "[.]:[...]"
-  sleep .2
-  read -p "[?]:[d3ckn3t]:[set^]:[Enter default --target]:[default is $DEFAULT_TARGET]:[?] " TARGET
-  sleep .2
-  echo "[.]:[...]"
-  sleep .2
-  read -p "[?]:[d3ckn3t]:[set^]:[Enter default --port]:[default is $DEFAULT_PORT]:[?] " PORT
-  sleep .2
-  echo "[.]:[...]"
-  sleep .2
-  read -p "[?]:[d3ckn3t]:[set^]:[Enter default --target]:[default is '$DEFAULT_COMMAND']:[?] " COMMAND
-  echo "DEBUG: USER=$USER, TARGET=$TARGET, PORT=$PORT, COMMAND=$COMMAND"
+  read -p "[?]:[choose wisely chooms] " setup_choice
 
-  sleep .2
-  echo "[.]:[...]"
-  sleep .2
-
-# Write the configuration to the file
-  echo "DEFAULT_USER=${USER:-$DEFAULT_USER}" > "$CONFIG_FILE"
-  echo "DEFAULT_TARGET=${TARGET:-$DEFAULT_TARGET}" >> "$CONFIG_FILE"
-  echo "DEFAULT_PORT=${PORT:-$DEFAULT_PORT}" >> "$CONFIG_FILE"
-  echo "DEFAULT_COMMAND='${COMMAND:-$DEFAULT_COMMAND}'" >> "$CONFIG_FILE"
-
-
-  echo -e "[!]:[sysangel@d3ckn3t]:[Configuration complete, time to break ice, cowboy!]:[!]\n"
+  case $setup_choice in
+    1)
+      ping_target
+      ;;
+    2)
+      setup_defaults
+      ;;
+    3)
+      clear
+      cat << "EOF"
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⢖⣛⣻⠿⢖⣒⣒⡒⠒⠲⠤⣄⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣼⠁⠈⠁⠀⢾⣿⠛⠛⠛⠛⠓⠀⠈⢇⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⣀⡤⢴⠇⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀               [d3ckn3t-sh3ll]:[v1]
+⠀⢀⡤⣲⣯⣶⣿⡿ ⠀.|3|@|<|-|@t. ⠀⢸⠀⠀⠀⠀⠀⠀⠀               [d3k4]:[2024]
+⢠⢟⣿⠟⠛⠉⢀⣧⣤⣀⣀⡀⠀⠀⣀⡤⠤⠐⠒⠒⠒⠒⠚⠒⠒⠢⢤⡀⠀⠀               [hack.the.planet]    
+⣾⡞⠁⠀⠀⠀⠸⢿⣿⣿⣿⠿⠛⠉   .|3|G|R0|\|.⠀⠉⠢⡀               [all.your.nekworkz.are.belong.to.us]
+⣷⠀⠀⠀⠀⠀⠀⣀⠤⠋⠁⠀⠀⣀⣀⣀⣠⣤⣤⣤⣤⣤⣤⣀⣀⡀⠀⠀⠀⢱
+⠘⢮⣦⣠⣄⣴⡯⠥⠴⠒⠚⠛⠛⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠛⠒⠒⠋       
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+EOF
+      exit_script
+      ;;
+    *)
+      echo "Invalid option."
+      read -p
+      ;;
+  esac
 }
-
 
 # Function to print usage information
 usage() {
@@ -100,7 +160,7 @@ exit_script() {
             sleep .2
             echo "[.]:[...]"
             sleep .2
-            echo "[!]:[d3Kd3k4t3ss3r4:]:[thanks for using d3ckn3t-t00ls, $operator]:[!]"
+            echo "[!]:[d3k4t3ss3r4:]:[thanks for using d3ckn3t-t00ls, $operator]:[!]"
             sleep .2
             echo "[.]:[...]"
             sleep .3
@@ -123,6 +183,7 @@ ping_target() {
 ⠘⢮⣦⣠⣄⣴⡯⠥⠴⠒⠚⠛⠛⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠛⠒⠒⠋       
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 EOF
+  read_config
   echo -e "\n[=]:[d3ckn3t]:[AP]:[ssh link is up]"
   sleep .3
   echo "[.]:[...]"
@@ -151,16 +212,14 @@ ssh_connect() {
 
 # Function to show the menu
 show_menu() {
-  echo -e "\n[+]:[d3ckn3t]:[client]:[$TARGET]:[Not Found]"
+  echo -e "[+]:[d3ckn3t]:[client]:[$TARGET]:[Not Found]\n"
   sleep .2
-  echo "[.]:[...]"
-  sleep .2
-  echo "[.]:[Options]:"
+  echo "[*]:[Options]:"
   echo -e "\n[1]:[d3ckn3t]:[AP]:[ping]:[$TARGET]"
   echo "[2]:[$hostname][nmap]:[sub.net scan]:["${TARGET%.*}.0/24"]"
-  echo -e "[3]:[Exit]\n"  
+  echo -e "[3]:[Exit]:[d3ckn3t_sh3ll]\n"  
   sleep .2
-  read -p "[?]:[Enter your choice:] [1-3]: " choice
+  read -p "[?]:[choose wisely chooms] " choice
 
   case $choice in
     1)
@@ -170,6 +229,19 @@ show_menu() {
       scan_subnet
       ;;
     3)
+      clear
+      cat << "EOF"
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⢖⣛⣻⠿⢖⣒⣒⡒⠒⠲⠤⣄⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣼⠁⠈⠁⠀⢾⣿⠛⠛⠛⠛⠓⠀⠈⢇⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⣀⡤⢴⠇⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀               [d3ckn3t-sh3ll]:[v1]
+⠀⢀⡤⣲⣯⣶⣿⡿ ⠀.|3|@|<|-|@t. ⠀⢸⠀⠀⠀⠀⠀⠀⠀               [d3k4]:[2024]
+⢠⢟⣿⠟⠛⠉⢀⣧⣤⣀⣀⡀⠀⠀⣀⡤⠤⠐⠒⠒⠒⠒⠚⠒⠒⠢⢤⡀⠀⠀               [hack.the.planet]    
+⣾⡞⠁⠀⠀⠀⠸⢿⣿⣿⣿⠿⠛⠉   .|3|G|R0|\|.⠀⠉⠢⡀               [all.your.nekworkz.are.belong.to.us]
+⣷⠀⠀⠀⠀⠀⠀⣀⠤⠋⠁⠀⠀⣀⣀⣀⣠⣤⣤⣤⣤⣤⣤⣀⣀⡀⠀⠀⠀⢱
+⠘⢮⣦⣠⣄⣴⡯⠥⠴⠒⠚⠛⠛⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠛⠒⠒⠋       
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+EOF
       exit_script
       ;;
     *)
@@ -198,13 +270,59 @@ EOF
     sleep .2
     echo "[.]:[...]"
     sleep .2
-    echo "[+]:[$hostname]:[nmap]:[sub.net scan]:["${TARGET%.*}.0/24"]"
+    echo "[+]:[$hostname]:[nmap]:[subnet.scan]:["${TARGET%.*}.0/24"]"
     sleep .2
     echo "[.]:[...]"
     
   nmap_output=$(nmap -p 22 "${TARGET%.*}.0/24" | awk '/Nmap scan report/{ip=$5; hostname=$NF; next} /Host is up/{status="closed"; next} /22\/open\/tcp\/ssh/{status="ssh: open"} {if(ip && status) {printf "%-32s %-22s %-25s\n", ip, hostname, status; ip=""; hostname=""; status=""}}')
   if [ -z "$nmap_output" ]; then
-    echo "No hosts found."
+    echo "[!]:[$hostname]:[nmap]:[subnet.scan]:["${TARGET%.*}.0/24"]:[FAIL]:[!]"
+    sleep .3
+    echo
+    echo "[!]:[$hostname]:[nmap]:[subnet.scan]:["${TARGET%.*}.0/24"]:[FAIL]:[!]"
+    sleep .3
+    echo
+    echo "[!]:[$hostname]:[nmap]:[subnet.scan]:["${TARGET%.*}.0/24"]:[FAIL]:[!]"
+    sleep .3
+    echo
+    echo "[!]:[$hostname]:[nmap]:[subnet.scan]:["${TARGET%.*}.0/24"]:[FAIL]:[!]"
+    echo
+    sleep .1
+    clear
+    cat << "EOF"
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⢖⣛⣻⠿⢖⣒⣒⡒⠒⠲⠤⣄⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣼⠁⠈⠁⠀⢾⣿⠛⠛⠛⠛⠓⠀⠈⢇⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⣀⡤⢴⠇⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀               [d3ckn3t-sh3ll]:[v1]
+⠀⢀⡤⣲⣯⣶⣿⡿ ⠀.|3|@|<|-|@t. ⠀⢸⠀⠀⠀⠀⠀⠀⠀               [d3k4]:[2024]
+⢠⢟⣿⠟⠛⠉⢀⣧⣤⣀⣀⡀⠀⠀⣀⡤⠤⠐⠒⠒⠒⠒⠚⠒⠒⠢⢤⡀⠀⠀               [hack.the.planet]    
+⣾⡞⠁⠀⠀⠀⠸⢿⣿⣿⣿⠿⠛⠉   .|3|G|R0|\|.⠀⠉⠢⡀               [all.your.nekworkz.are.belong.to.us]
+⣷⠀⠀⠀⠀⠀⠀⣀⠤⠋⠁⠀⠀⣀⣀⣀⣠⣤⣤⣤⣤⣤⣤⣀⣀⡀⠀⠀⠀⢱
+⠘⢮⣦⣠⣄⣴⡯⠥⠴⠒⠚⠛⠛⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠛⠒⠒⠋       
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+EOF
+    echo -e "\n[+]:[d3ckn3t]:[set^]:[temp]:[alternate.creds]:[+]"
+    echo "-------------------------------------------------"
+    read -p "[?]:[d3ckn3t]:[set^]:[temp]:[alternate.user]:[?]:" new_user
+    sleep .1
+    USER="$new_user"
+    sleep .1
+    echo -e "[?]:[d3ckn3t]:[set^]:[temp]:[alternate.user]:[=]:[$new_user]\n"
+    sleep .2
+    read -p "[?]:[d3ckn3t]:[set^]:[temp]:[alternate.target]:[?]:" new_target
+    sleep .1
+    TARGET="$new_target"
+    sleep .1
+    read -p "[?]:[d3ckn3t]:[set^]:[temp]:[alternate.target]:[=]:[$new_target]"
+    echo
+    sleep .1
+    prompt_continue
+    sleep .1
+    read -p
+    USER="$new_user"
+    TARGET="$new_target"
+    ping_target
+    
   else
     clear
     cat << "EOF"
@@ -224,16 +342,48 @@ EOF
     echo "$nmap_output"
   fi
   
-  echo -e "\n[1]:[set]:[alternate.user]:[+]:[alternate.target]"
-  echo "[2]:[Return]:[>]:[recon.menu]"
-  echo "[3]:[Exit.]"
-  read -p "[?]:[Enter your choice:] " choice
+  echo -e "\n[*]:[Options]:"  
+  echo -e "\n[1]:[set]:[alt_creds]"
+  echo "[2]:[return]:[>]:[recon.menu]"
+  echo -e "[3]:[exit]:[d3ckn3t_sh3ll]\n"
+  read -p "[?]:[choose wisely chooms] " choice
+  echo
   
   case $choice in
     1)
+      clear
+      cat << "EOF"
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⢖⣛⣻⠿⢖⣒⣒⡒⠒⠲⠤⣄⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣼⠁⠈⠁⠀⢾⣿⠛⠛⠛⠛⠓⠀⠈⢇⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⣀⡤⢴⠇⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀               [d3ckn3t-sh3ll]:[v1]
+⠀⢀⡤⣲⣯⣶⣿⡿ ⠀.|3|@|<|-|@t. ⠀⢸⠀⠀⠀⠀⠀⠀⠀               [d3k4]:[2024]
+⢠⢟⣿⠟⠛⠉⢀⣧⣤⣀⣀⡀⠀⠀⣀⡤⠤⠐⠒⠒⠒⠒⠚⠒⠒⠢⢤⡀⠀⠀               [hack.the.planet]    
+⣾⡞⠁⠀⠀⠀⠸⢿⣿⣿⣿⠿⠛⠉   .|3|G|R0|\|.⠀⠉⠢⡀               [all.your.nekworkz.are.belong.to.us]
+⣷⠀⠀⠀⠀⠀⠀⣀⠤⠋⠁⠀⠀⣀⣀⣀⣠⣤⣤⣤⣤⣤⣤⣀⣀⡀⠀⠀⠀⢱
+⠘⢮⣦⣠⣄⣴⡯⠥⠴⠒⠚⠛⠛⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠛⠒⠒⠋       
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+EOF
+      echo -e "\nHostname                        IP Address             SSH    "
+      echo "--------------------------      ---------------        -------"
+      echo -e "$nmap_output\n"
+
+      echo -e "[+]:[d3ckn3t]:[set^]:[temp]:[alternate.creds]:[+]"
+      echo "-------------------------------------------------"
+      read -p "[?]:[d3ckn3t]:[set^]:[input.temp]:[-u--user]:[?]:" new_user
+      sleep .1
+      USER="$new_user"
+      sleep .1
+      echo -e "[?]:[d3ckn3t]:[set^]:[temp_alt]:[-u--user]:[=]:[$new_user]\n"
+      sleep .2
+      read -p "[?]:[d3ckn3t]:[set^]:[input.temp_alt]:[-t--target]:[?]:" new_target
+      sleep .1
+      TARGET="$new_target"
+      sleep .1
+      read -p "[?]:[d3ckn3t]:[set^]:[temp_alt]:[-t--target]:[=]:[$new_target]"
       echo
-      read -p "[?]:[d3ckn3t]:[set^]:[alternate.user]:[?]: " new_user
-      read -p "[?]:[d3ckn3t]:[set^]:[alternate.target]:[?]: " new_target
+      prompt_continue
+      read -p
       USER="$new_user"
       TARGET="$new_target"
       ping_target
